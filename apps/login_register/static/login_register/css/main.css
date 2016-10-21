@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    color: #3c4c5b;
+}
+form {
+    width: 410px;
+    margin-left: 50px;
+}
+    form * {
+        display: inline-block;
+    }
+    h2 {
+        width: 300px;
+        margin-bottom: 15px;
+    }
+    label {
+        width: 110px;
+        font-size: 1.2em;
+        text-align: right;
+        margin-right: 10px;
+    }
+    input {
+        width: 250px;
+        color: #3c4c5b;
+        font-size: 1.1em;
+        outline: none;
+        border: 1px solid silver;
+        border-radius: 2px;
+        padding: 2px 5px;
+        margin-bottom: 25px;
+    }
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 100px #fff inset;
+    }
+    p {
+        margin-bottom: 15px;
+    }
+        p span {
+            color: white;
+            background-color: #009ac7;
+            font-weight: bold;
+            border-radius: 2px;
+            padding: 0 8px;
+        }
+    button {
+        font-size: 1em;
+        color: white;
+        background-color: #009ac7;
+        border: none;
+        border-radius: 2px;
+        outline: none;
+        box-shadow: 1px 1px 2px silver;
+        cursor: pointer;
+        margin-left: 305px;
+        padding: 4px 10px;
+    }
+    button:hover {
+        background-color: #007394;
+    }
+form#register {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+form#login {
+    padding-top: 20px;
+    border-top: 1px solid silver;
+}
+    #login button {
+        width: 80px;
+    }
+p.error {
+    color: orangered;
+    position: absolute;
+}
+p.name {
+    top: 101px;
+    left: 175px;
+}
+p.username {
+    top: 152px;
+    left: 175px;
+}
+p.pw {
+    top: 203px;
+    left: 175px;
+}
+p.confirm {
+    top: 255px;
+    left: 175px;
+}
+p.register {
+    top: 152px;
+    left: 175px;
+}
+p.login_user {
+    top: 494px;
+    left: 175px;
+}
+p.login_pw {
+    top: 544px;
+    left: 175px;
+}

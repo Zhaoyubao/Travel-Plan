@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    color: #3c4c5b;
+}
+a {
+    font-size: 1.2em;
+    color: #009ac7;
+    display: inline-block;
+}
+a#back {
+    margin: 20px 30px 0 550px;
+}
+h2 {
+    margin: 30px 0 20px 50px;
+}
+h3 {
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
+ul {
+    list-style: none;
+    margin-left: 50px;
+    margin-bottom: 50px;
+}
+    li {
+        font-size: 1.1em;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Black Belt Exam">
+    <title>Travel Plan</title>
+    <!-- <link rel="stylesheet" href="../../static/login_register/css/main.css"> -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'login_register/css/main.css' %}">
+</head>
+<body>
+    <form id="register" action="{% url 'users:register' %}" method="post"> {% csrf_token %}
+        <h2>Registration</h2>
+        <label>Name:</label>
+        <input type="text" name="name">
+        <label>Username:</label>
+        <input type="text" name="username">
+        <label>Password:</label>
+        <input type="password" name="pw">
+        <label>Confirm PW:</label>
+        <input type="password" name="pw_confirm">
+        <p><span>i</span>&nbsp; Name and username must be at least 3 characters.Name should be letters(space) only.&nbsp;Passwords must be at least 8 characters in length.</p>
+        <button type="submit">Register</button>
+    </form>
+    <form id="login" action="{% url 'users:login' %}" method="post"> {% csrf_token %}
+        <h2>Login</h2>
+        <label>Username:</label>
+        <input type="text" name="username">
+        <label>Password:</label>
+        <input type="password" name="pw">
+        <button type="submit">Login</button>
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
