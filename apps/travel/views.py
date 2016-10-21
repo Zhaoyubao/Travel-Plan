@@ -1,23 +1,15 @@
 from django.shortcuts import render,  redirect
 from ..login_register.models import User
 from .models import Travel
-from django.db.models import Count
 from django.urls import reverse
 from django.contrib import messages
 from datetime import datetime
 
 def index(request):
     user = User.objects.get(id=request.session['user'])
-    users = User.objects.all()
-    travels = Travel.objects.all()
-    # trips = user.travel_set.all()
     trips = Travel.objects.filter(user=user)
     trips_joined = user.travels.all()
     others = Travel.objects.exclude(user=user)
-    print '*'*70
-    print "Users:", users.values('id', 'name', 'username')
-    print "Trips:", travels.values('user', 'users', 'destination', 'plan', 'date_from', 'date_to')
-    print '*'*70
     context = {
         'user' : user,
         'trips' : trips,
@@ -45,14 +37,13 @@ def join(request, trip_id):
     return redirect(reverse('travel:index'))
 
 def show(request, trip_id):
-    u = User.objects.get(id=request.session['user'])
     trip = Travel.objects.get(id=trip_id)
+    others = trip.users.exclude(id=request.session['user'])
     context = {
-        'user' : u,
-        'trip' : trip
+        'trip' : trip,
+        'others' : others
     }
     return render(request, 'travel/show.html', context)
-
 
 def print_messages(request, error_list):
      for error in error_list:
@@ -79,7 +70,6 @@ def validate_travel(request, input):
             errors.append("Travel dates should be future-dated!")
         if trip_delta < 0:
             errors.append('Travel date to should not be before the Travel date from!')
-
     if errors:
         return (False, errors)
     u = User.objects.get(id=request.session['user'])

@@ -22,10 +22,8 @@
     </ul>
     <h3>Other Users' joining the trip:</h2>
     <ul>
-    {% for other_user in trip.users.all %}
-        {% if other_user != user %}
-            <li>{{ other_user.name|title }}</li>
-        {% endif %}
+    {% for user in others %}
+        <li>{{ user.name|title }}</li>
     {% endfor %}
     </ul>
 </body>
