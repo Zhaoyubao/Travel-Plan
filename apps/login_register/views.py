@@ -32,6 +32,7 @@ def login(request):
 def logout(request):
     try:
         del request.session['user']
+        messages.success(request, 'Successfully logged out!')
     except KeyError:
         pass
     return redirect(reverse('users:index'))

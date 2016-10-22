@@ -102,3 +102,8 @@ p.login_pw {
     top: 544px;
     left: 175px;
 }
+p.success {
+    color: limegreen;
+    margin-top: 20px;
+    margin-left: 50px;
+}

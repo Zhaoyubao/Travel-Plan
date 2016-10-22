@@ -9,6 +9,13 @@
     <!-- <link rel="stylesheet" href="../../static/travel/css/main.css"> -->
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'travel/css/main.css' %}">
+    <script type="text/javascript">
+        function deleteConfirm() {
+            if (!confirm("Confirm Delete?")) {
+                window.event.returnValue = false;
+            }
+        }
+    </script>
 </head>
 <body>
     <a id="logout" href="{% url 'users:logout' %}">Logout</a>
@@ -22,27 +29,24 @@
     <table id="mytrip" width="1000">
         <thead>
             <tr>
-                <th width="120">Destination</th>
+                <th width="150">Destination</th>
                 <th width="180">Travel Start Date</th>
                 <th width="180">Travel End Date</th>
-                <th width="350">Plan</th>
+                <th width="400">Plan</th>
             </tr>
         </thead>
         <tbody>
-        {% for trip in trips %}
+        {% for trip in trips|dictsort:'date_from' %}
             <tr>
                 <td><a  class="dest" href="{% url 'travel:show' trip.id %}">{{ trip.destination|title }}</a></td>
                 <td>{{ trip.date_from|date:'M d Y' }}</td>
                 <td>{{ trip.date_to|date:'M d Y' }}</td>
                 <td>{{ trip.plan }}</td>
-            </tr>
-        {% endfor %}
-        {% for trip in trips_joined %}
-            <tr>
-                <td><a  class="dest" href="{% url 'travel:show' trip.id %}">{{ trip.destination|title }}</a></td>
-                <td>{{ trip.date_from|date:'M d Y' }}</td>
-                <td>{{ trip.date_to|date:'M d Y' }}</td>
-                <td>{{ trip.plan }}</td>
+                {% if user in trip.users.all %}
+                    <td><a href="{% url 'travel:unjoin' trip.id %}">Unjoin</a></td>
+                {% else %}
+                    <td><a id="del" href="{% url 'travel:delete' trip.id %}" onClick=deleteConfirm()>Del</a></td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
@@ -60,7 +64,7 @@
         </thead>
         <tbody>
         {% for other in others %}
-            {% if user not in other.users.all %}
+             <!-- if user not in other.users.all -->
             <tr>
                 <td>{{ other.user.name|title }}</td>
                 <td><a class="dest" href="{% url 'travel:show' other.id %}">{{ other.destination|title }}</a></td>
@@ -68,7 +72,6 @@
                 <td>{{ other.date_to|date:'M d Y' }}</td>
                 <td><a href="{% url 'travel:join' other.id %}">Join</a></td>
             </tr>
-            {% endif %}
         {% endfor %}
         </tbody>
     </table>

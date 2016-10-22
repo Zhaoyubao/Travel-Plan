@@ -46,6 +46,9 @@ table {
     a.dest {
         font-size: 1.1em;
     }
+        a#del {
+            color: orangered;
+        }
 a#add {
     font-size: 1.2em;
     margin-left: 50px;

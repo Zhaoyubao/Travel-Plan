@@ -7,13 +7,17 @@ from datetime import datetime
 
 def index(request):
     user = User.objects.get(id=request.session['user'])
-    trips = Travel.objects.filter(user=user)
+    trips_created = Travel.objects.filter(user=user)
     trips_joined = user.travels.all()
-    others = Travel.objects.exclude(user=user)
+    trips_all = []
+    for trip in trips_created:
+        trips_all.append(trip)
+    for trip in trips_joined:
+        trips_all.append(trip)
+    others = Travel.objects.exclude(user=user).exclude(users__id=request.session['user']).order_by('date_from','date_to')
     context = {
         'user' : user,
-        'trips' : trips,
-        'trips_joined' : trips_joined,
+        'trips' : trips_all,
         'others' : others
     }
     return render(request, 'travel/index.html', context)
@@ -37,9 +41,20 @@ def join(request, trip_id):
     messages.success(request, "Trip joined Successfully!")
     return redirect(reverse('travel:index'))
 
+def unjoin(request, trip_id):
+    u = User.objects.get(id=request.session['user'])
+    trip = Travel.objects.get(id=trip_id)
+    trip.users.remove(u)
+    messages.success(request, "Trip unjoined.")
+    return redirect(reverse('travel:index'))
+
+def delete(request, trip_id):
+    Travel.objects.get(id=trip_id).delete()
+    return redirect(reverse('travel:index'))
+
 def show(request, trip_id):
     trip = Travel.objects.get(id=trip_id)
-    others = trip.users.exclude(id=request.session['user'])
+    others = trip.users.exclude(id=request.session['user']).order_by('name')
     context = {
         'trip' : trip,
         'others' : others

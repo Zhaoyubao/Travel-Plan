@@ -25,14 +25,18 @@ ul {
     margin-left: 50px;
     margin-bottom: 50px;
 }
-    li, span {
-        font-size: 1.1em;
+    #trip li, span {
         display: inline-block;
     }
     li {
+        font-size: 1.1em;
         margin-bottom: 10px;
     }
     span {
         width: 150px;
+        font-size: 1.1em;
+        margin-left: 20px;
+    }
+    ul#other li {
         margin-left: 20px;
     }

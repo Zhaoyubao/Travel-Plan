@@ -6,5 +6,7 @@ urlpatterns = [
     url(r'^new$', new, name='new'),
     url(r'^create$', create, name='create'),
     url(r'^join/(?P<trip_id>\d+)$', join, name='join'),
+    url(r'^unjoin/(?P<trip_id>\d+)$', unjoin, name='unjoin'),
     url(r'^show/(?P<trip_id>\d+)$', show, name='show'),
+    url(r'^delete/(?P<trip_id>\d+)$', delete, name='delete'),
 ]
