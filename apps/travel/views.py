@@ -34,6 +34,7 @@ def join(request, trip_id):
     u = User.objects.get(id=request.session['user'])
     trip = Travel.objects.get(id=trip_id)
     trip.users.add(u)
+    messages.success(request, "Trip joined Successfully!")
     return redirect(reverse('travel:index'))
 
 def show(request, trip_id):

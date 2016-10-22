@@ -20,12 +20,19 @@ h3 {
     margin-bottom: 20px;
 }
 ul {
+    width: 370px;
     list-style: none;
     margin-left: 50px;
     margin-bottom: 50px;
 }
-    li {
+    li, span {
         font-size: 1.1em;
-        margin-left: 20px;
+        display: inline-block;
+    }
+    li {
         margin-bottom: 10px;
+    }
+    span {
+        width: 150px;
+        margin-left: 20px;
     }

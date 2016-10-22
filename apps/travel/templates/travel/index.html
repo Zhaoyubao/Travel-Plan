@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Black Belt Exam">
     <title>Travel Plan</title>
-    <link rel="stylesheet" href="../../static/travel/css/main.css">
-    <!-- {% load staticfiles %} -->
-    <!-- <link rel="stylesheet" href="{% static 'travel/css/main.css' %}"> -->
+    <!-- <link rel="stylesheet" href="../../static/travel/css/main.css"> -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'travel/css/main.css' %}">
 </head>
 <body>
     <a id="logout" href="{% url 'users:logout' %}">Logout</a>

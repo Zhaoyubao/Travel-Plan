@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Black Belt Exam">
     <title>Travel Plan</title>
-    <link rel="stylesheet" href="../../static/travel/css/show.css">
-    <!-- {% load staticfiles %} -->
-    <!-- <link rel="stylesheet" href="{% static 'travel/css/show.css' %}"> -->
+    <!-- <link rel="stylesheet" href="../../static/travel/css/show.css"> -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'travel/css/show.css' %}">
 </head>
 <body>
     <a id="back" href="{% url 'travel:index' %}">Home</a>
     <a href="{% url 'users:logout' %}">Logout</a>
     <h2>{{ trip.destination|title }}</h2>
     <ul>
-        <li>Planned By:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ trip.user.name|title }}</li>
-        <li>Description: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ trip.plan }}</li>
-        <li>Travel Date From: &nbsp;&nbsp;{{ trip.date_from|date:'M d Y' }}</li>
-        <li>Travel Date To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ trip.date_to|date:'M d Y' }}</li>
+        <span>Planned By:</span><li>{{ trip.user.name|title }}</li>
+        <span>Description:</span><li>{{ trip.plan }}</li>
+        <span>Travel Date From:</span><li>{{ trip.date_from|date:'M d Y' }}</li>
+        <span>Travel Date To:</span><li>{{ trip.date_to|date:'M d Y' }}</li>
     </ul>
     <h3>Other Users' joining the trip:</h2>
     <ul>
