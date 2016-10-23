@@ -43,7 +43,7 @@
                 <td>{{ trip.date_to|date:'M d Y' }}</td>
                 <td>{{ trip.plan }}</td>
                 {% if user in trip.users.all %}
-                    <td><a href="{% url 'travel:unjoin' trip.id %}">Unjoin</a></td>
+                    <td><a href="{% url 'travel:cancel' trip.id %}">Cancel</a></td>
                 {% else %}
                     <td><a id="del" href="{% url 'travel:delete' trip.id %}" onClick=deleteConfirm()>Del</a></td>
                 {% endif %}
@@ -75,6 +75,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <a id="add" href="{% url 'travel:create' %}">Add</a>
+    <a id="add" href="{% url 'travel:create' %}">Add New Travel Plan</a>
 </body>
 </html>

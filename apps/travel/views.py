@@ -3,7 +3,6 @@ from ..login_register.models import User
 from .models import Travel
 from django.urls import reverse
 from django.contrib import messages
-from datetime import datetime
 
 def index(request):
     user = User.objects.get(id=request.session['user'])
@@ -27,7 +26,7 @@ def new(request):
 
 def create(request):
     if request.method == 'POST':
-        result = validate_travel(request, request.POST)
+        result = Travel.objects.validate_travel(request.POST)
         if result[0]:
             messages.success(request, result[1])
             return redirect(reverse('travel:index'))
@@ -38,56 +37,30 @@ def join(request, trip_id):
     u = User.objects.get(id=request.session['user'])
     trip = Travel.objects.get(id=trip_id)
     trip.users.add(u)
-    messages.success(request, "Trip joined Successfully!")
+    messages.success(request, "Trip joined.")
     return redirect(reverse('travel:index'))
 
-def unjoin(request, trip_id):
+def cancel(request, trip_id):
     u = User.objects.get(id=request.session['user'])
     trip = Travel.objects.get(id=trip_id)
     trip.users.remove(u)
-    messages.success(request, "Trip unjoined.")
+    messages.success(request, "Trip cancelled.")
     return redirect(reverse('travel:index'))
 
 def delete(request, trip_id):
     Travel.objects.get(id=trip_id).delete()
+    messages.success(request, "Trip deleted.")
     return redirect(reverse('travel:index'))
 
 def show(request, trip_id):
     trip = Travel.objects.get(id=trip_id)
-    others = trip.users.exclude(id=request.session['user']).order_by('name')
+    other_users = trip.users.order_by('name')
     context = {
         'trip' : trip,
-        'others' : others
+        'others' : other_users
     }
     return render(request, 'travel/show.html', context)
 
 def print_messages(request, error_list):
      for error in error_list:
         messages.error(request, error)
-
-def validate_travel(request, input):
-    errors = []
-    dest = input['destination']
-    plan = input['plan']
-    date_from = input['date_from']
-    date_to = input['date_to']
-    if not dest or dest.isspace():
-        errors.append("Please enter the destination!")
-    if not plan or plan.isspace():
-        errors.append("Please enter the plan!")
-    if not date_from:
-        errors.append("Please select your travel date from!")
-    if not date_to:
-        errors.append("Please select your travel date to!")
-    if date_from and date_to:
-        date_delta = (datetime.now() - datetime.strptime(date_from, '%Y-%m-%d')).days
-        trip_delta = (datetime.strptime(date_to, '%Y-%m-%d') - datetime.strptime(date_from, '%Y-%m-%d')).days
-        if date_delta >= 0:
-            errors.append("Travel dates should be future-dated!")
-        if trip_delta < 0:
-            errors.append('Travel date to should not be before the Travel date from!')
-    if errors:
-        return (False, errors)
-    u = User.objects.get(id=request.session['user'])
-    Travel.objects.create(destination=dest, plan=plan, date_from=date_from, date_to=date_to, user=u)
-    return (True, "Trip added Successfully!")
