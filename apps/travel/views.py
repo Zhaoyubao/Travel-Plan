@@ -6,18 +6,12 @@ from django.contrib import messages
 
 def index(request):
     user = User.objects.get(id=request.session['user'])
-    trips_created = Travel.objects.filter(user=user)
-    trips_joined = user.travels.all()
-    trips_all = []
-    for trip in trips_created:
-        trips_all.append(trip)
-    for trip in trips_joined:
-        trips_all.append(trip)
-    others = Travel.objects.exclude(user=user).exclude(users__id=request.session['user']).order_by('date_from','date_to')
+    trips_user = Travel.objects.filter(user=user) | Travel.objects.filter(users=user).order_by('date_from', 'date_to')
+    trips_others = Travel.objects.exclude(user=user).exclude(users=user).order_by('date_from','date_to')
     context = {
         'user' : user,
-        'trips' : trips_all,
-        'others' : others
+        'trips' : trips_user,
+        'others' : trips_others
     }
     return render(request, 'travel/index.html', context)
 

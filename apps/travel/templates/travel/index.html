@@ -36,7 +36,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for trip in trips|dictsort:'date_from' %}
+        {% for trip in trips %}
             <tr>
                 <td><a  class="dest" href="{% url 'travel:show' trip.id %}">{{ trip.destination|title }}</a></td>
                 <td>{{ trip.date_from|date:'M d Y' }}</td>
@@ -63,14 +63,13 @@
             </tr>
         </thead>
         <tbody>
-        {% for other in others %}
-             <!-- if user not in other.users.all -->
+        {% for trip in others %}
             <tr>
-                <td>{{ other.user.name|title }}</td>
-                <td><a class="dest" href="{% url 'travel:show' other.id %}">{{ other.destination|title }}</a></td>
-                <td>{{ other.date_from|date:'M d Y' }}</td>
-                <td>{{ other.date_to|date:'M d Y' }}</td>
-                <td><a href="{% url 'travel:join' other.id %}">Join</a></td>
+                <td>{{ trip.user.name|title }}</td>
+                <td><a class="dest" href="{% url 'travel:show' trip.id %}">{{ trip.destination|title }}</a></td>
+                <td>{{ trip.date_from|date:'M d Y' }}</td>
+                <td>{{ trip.date_to|date:'M d Y' }}</td>
+                <td><a href="{% url 'travel:join' trip.id %}">Join</a></td>
             </tr>
         {% endfor %}
         </tbody>
