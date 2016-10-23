@@ -5,8 +5,14 @@ from django.urls import reverse
 from django.contrib import messages
 
 def index(request):
+    trips_user = []
     user = User.objects.get(id=request.session['user'])
-    trips_user = Travel.objects.filter(user=user) | Travel.objects.filter(users=user).order_by('date_from', 'date_to')
+    trips_added = Travel.objects.filter(user=user)
+    trips_joined = Travel.objects.filter(users=user)
+    for trip in trips_added:
+        trips_user.append(trip)
+    for trip in trips_joined:
+        trips_user.append(trip)
     trips_others = Travel.objects.exclude(user=user).exclude(users=user).order_by('date_from','date_to')
     context = {
         'user' : user,
@@ -20,7 +26,8 @@ def new(request):
 
 def create(request):
     if request.method == 'POST':
-        result = Travel.objects.validate_travel(request.POST)
+        user = User.objects.get(id=request.session['user'])
+        result = Travel.objects.validate_travel(request.POST, user)
         if result[0]:
             messages.success(request, result[1])
             return redirect(reverse('travel:index'))

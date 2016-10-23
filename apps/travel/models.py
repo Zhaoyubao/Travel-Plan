@@ -4,7 +4,7 @@ from ..login_register.models import User
 from datetime import datetime
 
 class TravelManager(models.Manager):
-    def validate_travel(self, input):
+    def validate_travel(self, input, user):
         errors = []
         dest = input['destination']
         plan = input['plan']
@@ -27,8 +27,7 @@ class TravelManager(models.Manager):
                 errors.append('Travel date to should not be before the Travel date from!')
         if errors:
             return (False, errors)
-        u = User.objects.get(id=request.session['user'])
-        self.create(destination=dest, plan=plan, date_from=date_from, date_to=date_to, user=u)
+        self.create(destination=dest, plan=plan, date_from=date_from, date_to=date_to, user=user)
         return (True, "Trip added Successfully!")
 
 

@@ -5,7 +5,7 @@
     color: #3c4c5b;
 }
 h2 {
-    margin: 10px 0 30px 50px;
+    margin: 5px 0 30px 50px;
 }
 a {
     color: #009ac7;
@@ -23,7 +23,7 @@ p.success {
     position: absolute;
 }
 h3 {
-    margin: 5px 0 10px 50px;
+    margin: 0 0 10px 50px;
 }
 table {
     text-align: center;
@@ -32,13 +32,11 @@ table {
 }
     thead th {
         height: 40px;
-        font-size: 1.1em;
         color: white;
         background-color: #009ac7;
     }
     tbody td {
         height: 35px;
-        font-size: 1em;
     }
     tr:nth-of-type(odd) {
         background-color: #f5fafe;
@@ -50,6 +48,18 @@ table {
             color: orangered;
         }
 a#add {
-    font-size: 1.2em;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: #009ac7;
+    border-radius: 2px;
+    box-shadow: 1px 1px 2px silver;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
     margin-left: 50px;
+    padding: 4px 15px;
+}
+a#add:hover {
+    background-color: #007394;
 }

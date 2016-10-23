@@ -36,7 +36,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for trip in trips %}
+        {% for trip in trips|dictsort:"date_from" %}
             <tr>
                 <td><a  class="dest" href="{% url 'travel:show' trip.id %}">{{ trip.destination|title }}</a></td>
                 <td>{{ trip.date_from|date:'M d Y' }}</td>
@@ -57,9 +57,9 @@
             <tr>
                 <th width="150">Name</th>
                 <th width="200">Destination</th>
-                <th width="200">Travel Start Date</th>
-                <th width="200">Travel End Date</th>
-                <th width="150">Do You Want to Join?</th>
+                <th width="190">Travel Start Date</th>
+                <th width="190">Travel End Date</th>
+                <th width="170">Do You Want to Join?</th>
             </tr>
         </thead>
         <tbody>
