@@ -27,7 +27,8 @@ class TravelManager(models.Manager):
                 errors.append('Travel date to should not be before the Travel date from!')
         if errors:
             return (False, errors)
-        self.create(destination=dest, plan=plan, date_from=date_from, date_to=date_to, user=user)
+        trip = self.create(destination=dest, plan=plan, date_from=date_from, date_to=date_to, user=user)
+        trip.users.add(user)
         return (True, "Trip added Successfully!")
 
 

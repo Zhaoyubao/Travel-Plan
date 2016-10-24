@@ -36,16 +36,16 @@
             </tr>
         </thead>
         <tbody>
-        {% for trip in trips|dictsort:"date_from" %}
+        {% for trip in trips %}
             <tr>
                 <td><a  class="dest" href="{% url 'travel:show' trip.id %}">{{ trip.destination|title }}</a></td>
                 <td>{{ trip.date_from|date:'M d Y' }}</td>
                 <td>{{ trip.date_to|date:'M d Y' }}</td>
                 <td>{{ trip.plan }}</td>
-                {% if user in trip.users.all %}
-                    <td><a href="{% url 'travel:cancel' trip.id %}">Cancel</a></td>
-                {% else %}
+                {% if user == trip.user %}
                     <td><a id="del" href="{% url 'travel:delete' trip.id %}" onClick=deleteConfirm()>Del</a></td>
+                {% else %}
+                    <td><a href="{% url 'travel:cancel' trip.id %}">Cancel</a></td>
                 {% endif %}
             </tr>
         {% endfor %}

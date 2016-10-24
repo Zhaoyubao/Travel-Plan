@@ -5,18 +5,12 @@ from django.urls import reverse
 from django.contrib import messages
 
 def index(request):
-    trips_user = []
     user = User.objects.get(id=request.session['user'])
-    trips_added = Travel.objects.filter(user=user)
-    trips_joined = Travel.objects.filter(users=user)
-    for trip in trips_added:
-        trips_user.append(trip)
-    for trip in trips_joined:
-        trips_user.append(trip)
-    trips_others = Travel.objects.exclude(user=user).exclude(users=user).order_by('date_from','date_to')
+    trips = Travel.objects.filter(users=user).order_by('date_from','date_to')
+    trips_others = Travel.objects.exclude(users=user).order_by('date_from','date_to')
     context = {
         'user' : user,
-        'trips' : trips_user,
+        'trips' : trips,
         'others' : trips_others
     }
     return render(request, 'travel/index.html', context)
@@ -55,7 +49,7 @@ def delete(request, trip_id):
 
 def show(request, trip_id):
     trip = Travel.objects.get(id=trip_id)
-    other_users = trip.users.order_by('name')
+    other_users = trip.users.exclude(id=trip.user.id).order_by('name')
     context = {
         'trip' : trip,
         'others' : other_users
