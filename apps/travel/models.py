@@ -19,11 +19,11 @@ class TravelManager(models.Manager):
         if not date_to:
             errors.append("Please select your travel date to!")
         if date_from and date_to:
-            date_delta = (datetime.now() - datetime.strptime(date_from, '%Y-%m-%d')).days
-            trip_delta = (datetime.strptime(date_to, '%Y-%m-%d') - datetime.strptime(date_from, '%Y-%m-%d')).days
-            if date_delta >= 0:
+            today = datetime.now().strftime('%Y-%m-%d')
+            # date_delta = (datetime.now() - datetime.strptime(date_from, '%Y-%m-%d')).days
+            if date_from <= today:
                 errors.append("Travel dates should be future-dated!")
-            if trip_delta < 0:
+            if date_from > date_to:
                 errors.append('Travel date to should not be before the Travel date from!')
         if errors:
             return (False, errors)
